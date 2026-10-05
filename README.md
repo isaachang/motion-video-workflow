@@ -5,215 +5,281 @@
 <h1 align="center">Motion Video Workflow</h1>
 
 <p align="center">
-  <b>一段配音，变成一支逐帧代码渲染的口播动效片。</b><br>
-  一个给 AI 编程助手用的 Skill：听写对齐口播 → 抓真实素材 → 写分镜 → 现场设计每一帧 → 60fps 成片 + 封面。
+  <b>你录一段配音，AI 现场设计每一帧，交出一支 60fps 的口播动效片。</b><br>
+  <sub>A Claude Code skill that turns a voice-over into a frame-accurate, code-rendered motion video.</sub>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/最佳搭档-Claude%20Code-D97757?style=flat-square" alt="Claude Code">
   <img src="https://img.shields.io/badge/也支持-Codex-111111?style=flat-square" alt="Codex">
-  <img src="https://img.shields.io/badge/输出-9%3A16%20%7C%2016%3A9-3B5BFF?style=flat-square" alt="ratio">
+  <img src="https://img.shields.io/badge/组件-40-3B5BFF?style=flat-square" alt="40 components">
+  <img src="https://img.shields.io/badge/转场-13-8B5CF6?style=flat-square" alt="13 transitions">
   <img src="https://img.shields.io/badge/渲染-60fps%20逐帧-10B981?style=flat-square" alt="60fps">
+  <img src="https://img.shields.io/badge/成本-0%20元%20·%20全程本地-111111?style=flat-square" alt="free local">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="MIT">
 </p>
 
----
-
-## 作品墙
-
-下面 12 张都是这个 Skill 的组件包直接渲染出来的 9:16 成片画面。同一套引擎，12 种完全不同的风格。
-
 <table>
   <tr>
-    <td align="center"><img src="docs/showcase/01.jpg" width="200"><br><b>白瓷发布会</b><br><sub>印章大字 · 数据格 · 键帽</sub></td>
-    <td align="center"><img src="docs/showcase/02.jpg" width="200"><br><b>深夜霓虹</b><br><sub>AI 资讯 · 新闻卡 · 快讯条</sub></td>
-    <td align="center"><img src="docs/showcase/03.jpg" width="200"><br><b>科技网格</b><br><sub>排行榜 · 透视网格</sub></td>
-    <td align="center"><img src="docs/showcase/04.jpg" width="200"><br><b>清爽白板</b><br><sub>知识讲解 · 流程链</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="docs/showcase/05.jpg" width="200"><br><b>杂志拼贴</b><br><sub>以前 vs 现在 · 盖章</sub></td>
-    <td align="center"><img src="docs/showcase/06.jpg" width="200"><br><b>弧形作品墙</b><br><sub>CSS 3D · 旋转视频墙</sub></td>
-    <td align="center"><img src="docs/showcase/07.jpg" width="200"><br><b>终端教程</b><br><sub>命令行逐字输入 · 步骤徽章</sub></td>
-    <td align="center"><img src="docs/showcase/08.jpg" width="200"><br><b>产品对话</b><br><sub>案例分享 · 手机聊天</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="docs/showcase/09.jpg" width="200"><br><b>数据看板</b><br><sub>大数字 · 柱状图</sub></td>
-    <td align="center"><img src="docs/showcase/10.jpg" width="200"><br><b>分层结构</b><br><sub>3D 技术栈</sub></td>
-    <td align="center"><img src="docs/showcase/11.jpg" width="200"><br><b>片尾引导</b><br><sub>关注 · 评论区置顶</sub></td>
-    <td align="center"><img src="docs/showcase/12.jpg" width="200"><br><b>极光时间线</b><br><sub>时间线 · 发光关键词</sub></td>
+    <td align="center" width="33%"><img src="docs/showcase/hero.gif" width="100%"><br><b>一镜到底的运镜转场</b></td>
+    <td align="center" width="33%"><img src="docs/showcase/say.gif" width="100%"><br><b>说到哪个字，画面就到哪一帧</b></td>
+    <td align="center" width="33%"><img src="docs/showcase/web.gif" width="100%"><br><b>真实网页 1:1 还原</b></td>
   </tr>
 </table>
 
-<p align="center">
-  <img src="docs/showcase/reel.gif" width="300" alt="动起来是这样的"><br>
-  <sub>动起来是这样的：入场、镜头推拉、数字跳动、按键按下，全部和口播逐字对齐</sub>
-</p>
-
-> 效果图里的内容（新闻、数据、对话、频道名）全部是代码生成的虚构示例，源码在 [`docs/showcase-src/`](docs/showcase-src/)。
+> 上面每一帧都是代码画的：没有剪辑软件、没有模板、没有 AI 生成视频。改哪一秒就重画哪一秒，每次渲染结果完全一致。
 
 ---
 
-## 它能做什么
+## 六大绝活 · Six Superpowers
 
-| | |
+### 01 · 配音逐字驱动 · Voice-driven timing
+
+<img src="docs/showcase/say.gif" width="300" align="right">
+
+离线听写给配音里的**每一个字**标上时间。写动画时不用手抄秒数，直接写说到哪个词：
+
+```js
+const t = say('4万');        // → 22.59，数字就在这一帧砸出来
+say('收藏', 2);              // 第 2 次说「收藏」的时刻
+sayEnd('抄作业');            // 最后一个字的时刻
+```
+
+- 画面和口播的误差在一帧以内（1/60 秒）
+- 转场、镜头运动自动吸附到音乐拍点上
+- 重录配音？重新听写一次，全片自动跟上新的时间，代码一行不改
+
+<br clear="right">
+
+### 02 · 一镜到底的运镜转场 · Camera-continuous transitions
+
+不是「盖一层东西把切点遮住」，而是**前后两个镜头在转场的那半秒里同时存在、共用同一条运动曲线**。镜头运动跨过切点也不断，再叠加最多 8 层运动模糊。
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/showcase/tr/t1.gif" width="200"><br><b>推进穿越</b><br><sub>推进一个元素，它的内部就是下一镜</sub></td>
+    <td align="center"><img src="docs/showcase/tr/t2.gif" width="200"><br><b>甩镜衔接</b><br><sub>同方向、同速度甩进下一镜</sub></td>
+    <td align="center"><img src="docs/showcase/tr/t3.gif" width="200"><br><b>形状匹配</b><br><sub>卡片原地变形成手机屏幕</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/showcase/tr/t4.gif" width="200"><br><b>前景遮挡</b><br><sub>前景板划过，背后已换场景</sub></td>
+    <td align="center"><img src="docs/showcase/tr/t5.gif" width="200"><br><b>景深转换</b><br><sub>虚焦淡出，对焦浮现</sub></td>
+    <td align="center"><img src="docs/showcase/tr/t6.gif" width="200"><br><b>拉远揭示</b><br><sub>整个画面缩成一枚图标</sub></td>
+  </tr>
+</table>
+
+<p align="center"><a href="docs/showcase/transitions-30s.mp4">▶ 看 30 秒完整演示片（6 种转场连续衔接）</a></p>
+
+AI 会按口播自己判断：只在信息切换处转，有形状相似的元素就用形状匹配，从细节回到全局就用拉远揭示，一分钟的片子用 3–4 次，留一个最炸的给高潮。
+
+### 03 · 每期现场设计，不套模板 · Designed per episode
+
+组件包只是底座。AI 每期都按口播内容**现场设计、现场写代码**：现成组件能表达的直接用，表达不了、会和往期撞脸、高潮需要记忆点的，就新写，并在分镜表里标明为什么。第一期 56 秒的片子，约一半代码是现场写的。
+
+下面 12 张来自同一套引擎，风格完全不同：
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/showcase/01.jpg" width="160"><br><sub>白瓷发布会</sub></td>
+    <td align="center"><img src="docs/showcase/02.jpg" width="160"><br><sub>深夜霓虹</sub></td>
+    <td align="center"><img src="docs/showcase/03.jpg" width="160"><br><sub>科技网格</sub></td>
+    <td align="center"><img src="docs/showcase/04.jpg" width="160"><br><sub>清爽白板</sub></td>
+    <td align="center"><img src="docs/showcase/05.jpg" width="160"><br><sub>杂志拼贴</sub></td>
+    <td align="center"><img src="docs/showcase/06.jpg" width="160"><br><sub>弧形作品墙</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/showcase/07.jpg" width="160"><br><sub>终端教程</sub></td>
+    <td align="center"><img src="docs/showcase/08.jpg" width="160"><br><sub>产品对话</sub></td>
+    <td align="center"><img src="docs/showcase/09.jpg" width="160"><br><sub>数据看板</sub></td>
+    <td align="center"><img src="docs/showcase/10.jpg" width="160"><br><sub>分层结构</sub></td>
+    <td align="center"><img src="docs/showcase/11.jpg" width="160"><br><sub>片尾引导</sub></td>
+    <td align="center"><img src="docs/showcase/12.jpg" width="160"><br><sub>极光时间线</sub></td>
+  </tr>
+</table>
+
+### 04 · 真实网页 1:1 还原 · Real UI, rebuilt
+
+<img src="docs/showcase/web.gif" width="300" align="right">
+
+讲工具、讲产品，画面里必须是真东西。
+
+- 一条命令抓取网页的 2x 高清截图，自动关掉 Cookie、登录这类弹窗
+- 同时导出每个按钮、标题的精确坐标，框选、推近、鼠标点击都按坐标来，不靠肉眼估
+- 需要单独做动画的元素（按钮、数据卡），照截图 1:1 重建
+- 每个素材的来源和许可自动记进 `a/来源.md`
+
+右边这段就是抓取本仓库的 GitHub 页面后，现场做出来的。
+
+<br clear="right">
+
+### 05 · 你只做选择题 · You just choose
+
+<img src="docs/showcase/choice.jpg" width="100%">
+
+整个流程里，你只需要点选项：比例、音乐、风格、标题，每题都有推荐项。还可以先看**全篇关键帧总览**再开工。说一句「直接做」，它就全部按推荐走完，最后告诉你替你选了什么。
+
+AI 还会**自己看预览帧**，检查文字有没有被裁、元素有没有重叠、字够不够大，发现问题自己修。
+
+### 06 · 越用越强 · Gets better every episode
+
+```mermaid
+flowchart LR
+  A[做一期片子] --> B[交付时复盘]
+  B --> C[你的意见 → 写进硬规则]
+  B --> D[新写的组件 → 沉淀进组件包]
+  B --> E[碰到的 bug → 修进引擎]
+  C --> F[下一期更快、更稳、更像你]
+  D --> F
+  E --> F
+  F --> A
+```
+
+每期交付时，AI 会把这期的收获分成三类列出来，你勾选同意的，它再更新进 skill。用得越久，越懂你的审美。
+
+---
+
+## 一支片是怎么诞生的 · Pipeline
+
+<img src="docs/showcase/pipe.jpg" width="100%">
+
+---
+
+## 和别的方案比 · Comparison
+
+| | 剪映模板 | AE / PR 手工 | AI 文生视频 | Remotion 等代码框架 | **Motion Video Workflow** |
+|---|---|---|---|---|---|
+| 和口播逐字对齐 | 手动拖 | 手动打点 | 做不到 | 自己写 | **自动** |
+| 每期不重样 | 容易撞款 | 看人 | 随机抽卡 | 自己写 | **AI 按内容现场设计** |
+| 精确到帧地修改 | 有限 | 可以 | 只能重新生成 | 可以 | **可以，改哪秒重画哪秒** |
+| 真实界面、文字 | 手工截图 | 手工 | 常出错字 | 自己写 | **自动抓取 + 1:1 重建** |
+| 上手门槛 | 低 | 高 | 低 | 要会写代码 | **低：只做选择题** |
+| 成本 | 会员 | 软件 + 大量时间 | 按次计费 | 免费 | **免费、全程本地** |
+
+---
+
+## 能力清单 · What's inside
+
+<details>
+<summary><b>40 个组件</b>（点开看全部）</summary>
+
+| 组件包 | 组件 |
 |---|---|
-| **配音驱动** | 离线逐字听写，每个字都有时间。说到「4 万」的那一帧，数字正好跳出来。转场吸附到音乐拍点上 |
-| **代码逐帧渲染** | 画面全部由 HTML、CSS 3D、Canvas 画出，浏览器逐帧截图后合成 60fps 视频。想改哪一秒就重画哪一秒，每次渲染结果完全一致 |
-| **每期都不重样** | 引擎和组件复用，画面、配色、版式按每期内容现场设计。不是套模板 |
-| **真实素材** | 自动抓网页 2x 截图（会关掉 Cookie 弹窗），从官网拿 logo，界面按截图 1:1 重建，素材来源全部记录在案 |
-| **竖版装饰带** | 9:16 采用「上标题带 / 中内容窗 / 下信息带」排版，内置 5 种风格：night、tech、clean、paper、porcelain |
-| **没有音乐也能做** | 可以自动合成和口播段落对齐的配乐，冲击音、痛点段抽鼓都会自动处理（自己挑的音乐效果更好） |
-| **封面一起出** | 每期都出 3:4 竖版和 4:3 横版两张封面 |
-| **关键节点让你拍板** | 每个问题都是选择题，带推荐选项；可以先看全篇关键帧总览再开工 |
+| 知识讲解 `explainer` | 动态文字、关键词卡、流程链、左右对比、时间线、大数字、柱状图、分层结构、标注框、状态胶囊、5 种动态背景、约 25 个线性图标 |
+| AI 资讯 `news` | 新闻卡、社交帖、滚动快讯条、排行榜 |
+| 教程 `tutorial` | 浏览器 / 应用窗口、鼠标点击、逐字打字、代码块、终端、聚光灯、步骤徽章 |
+| 产品案例 `product-ui` | 手机聊天（逐条推近）、推送通知 |
+| 竖版 `vertical` | 竖版画布和镜头、印章大字、盖章、逐字浮现、数据格、提示条、键帽、冲击线 |
+| 真实网页 `web` | 浏览器加长图滚动、截图框选、截图局部放大、卡片内逐帧播放视频 |
+| 片尾 `outro` | 收藏、关注、评论区置顶 |
+| 引擎 `engine` | 镜头推拉、手持漂移、抖动、闪白、色散、胶片颗粒、彩屑、拍点卡点、口播时间查询 |
+
+</details>
+
+<details>
+<summary><b>13 种转场</b></summary>
+
+| 类型 | 转场 |
+|---|---|
+| 运镜转场（镜头连续） | 推进穿越、拉远揭示、甩镜衔接、形状匹配、前景遮挡、景深转换 |
+| 遮罩转场 | 笔刷擦屏、色条擦屏、光圈、圆形揭示、矩形揭示、穿越推镜、甩镜 |
+
+</details>
+
+<details>
+<summary><b>5 种 9:16 装饰带 + 工具链</b></summary>
+
+- 装饰带：深夜 night、科技 tech、清爽 clean、纸感 paper、白瓷 porcelain
+- 工具：混音（人声自动压低音乐）、离线逐字听写、拍点检测、自动合成配乐、口播时间查询、网页抓取、抽帧预览、分段并行渲染、HEVC 合成、3:4 和 4:3 封面导出
+
+</details>
 
 ---
 
-## 为什么推荐用 Claude Code
+## 为什么推荐 Claude Code · Best with Claude
 
-这个 Skill 在 **Claude Code + Claude Opus** 上开发和打磨，效果最好，原因有三个：
+这个 skill 在 **Claude Code + Claude Opus** 上开发和打磨，效果最好：
 
-- **选择题确认**：Skill 用 Claude Code 自带的选择题工具（AskUserQuestion）问你比例、风格、标题，点一下就能选。
-- **看图自查**：Claude 能直接看自己渲染出来的预览帧，自己发现文字被裁、元素重叠、字太小这些问题，再修好。
-- **代码动效能力**：每期都要现场写几百到上千行动画代码、做视觉设计，这正是 Claude 擅长的。
+- **选择题确认**：用 Claude Code 自带的选择题工具问你，点一下就能选
+- **看图自查**：Claude 能直接看自己渲染的预览帧，发现问题自己修
+- **现场设计**：每期都要现写几百到上千行动画代码、做视觉设计，这正是 Claude 擅长的
 
-Codex 等支持 `SKILL.md` 的 agent 也能用，Skill 里写了降级方案：选择题改成编号选项，发图改成给出图片路径。只是交互和自查不如 Claude Code 顺手。
+Codex 等支持 `SKILL.md` 的 agent 也能用（选择题会变成编号选项，发图会变成给出图片路径），只是交互和自查不如 Claude Code 顺手。
 
 ---
 
-## 安装
+## 安装 · Install
 
-### Claude Code（推荐）
+**Claude Code（推荐）**
 
 ```bash
 git clone https://github.com/isaachang/motion-video-workflow ~/.claude/skills/motion-video-workflow
 ```
 
-装到某个项目里只给这个项目用，就把路径换成 `你的项目/.claude/skills/motion-video-workflow`。装好后重开一次 Claude Code，它会自动识别这个 Skill。
+只给某个项目用，就换成 `你的项目/.claude/skills/motion-video-workflow`。装好后重开 Claude Code，会自动识别。
 
-### Codex
+**Codex**
 
 ```bash
 git clone https://github.com/isaachang/motion-video-workflow ~/.agents/skills/motion-video-workflow
 ```
 
-项目级就放在 `你的项目/.agents/skills/`。较早的 Codex 版本使用 `~/.codex/skills/`。在 Codex 里输入 `$motion-video-workflow` 调用，或者直接描述需求让它自动触发。
+项目级放 `你的项目/.agents/skills/`；较早的 Codex 版本用 `~/.codex/skills/`。输入 `$motion-video-workflow` 调用，或直接描述需求自动触发。
 
-### 第一次运行
+**第一次运行**不用手动装依赖：AI 会把模板复制到项目目录，运行 `bash tools/setup.sh`，自动安装 Python 依赖、Playwright 浏览器、约 250MB 的离线听写模型，缺中文字体会自动下载开源的思源黑体。
 
-不用手动装依赖。第一次做片时，AI 会把 `motion-kit/` 复制到你的项目目录，然后运行 `bash tools/setup.sh`：安装 Python 依赖和 Playwright 浏览器，下载约 250MB 的离线听写模型，检查 ffmpeg 和中文字体（缺字体会自动下载开源的思源黑体）。
+## 怎么用 · Usage
 
----
-
-## 怎么用
-
-准备好一段配音（手机录音就行），然后对 AI 说：
+准备一段配音（手机录音就行），对 AI 说：
 
 ```text
 用 motion-video-workflow，把 ~/Desktop/配音.mp3 做成一支 9:16 的口播动效片。
 主题是介绍 XX 网站，口播稿如下：……
 ```
 
-接下来大致是这样：
+接下来：开场确认（比例、音乐）→ 要不要先看效果图 → 确认标题、配色、分镜 → 要不要先看全篇关键帧总览 → 渲染 → 交付成片和两张封面，并列出可以沉淀进 skill 的改进。
 
-1. **开场确认**（一次问完）：输出比例？背景音乐自己找（推荐），还是自动合成？
-2. **效果图**：要不要先看 2–3 个视觉方向的 9:16 效果图？
-3. **确认单**：顶部标题、底部文案、配色、分镜表，每项都有推荐选项；最后问要不要先看全篇关键帧总览。
-4. **制作和渲染**：后台并行渲染 60fps 成片。
-5. **交付**：成片、3:4 和 4:3 两张封面、素材来源清单；另外列出这期可以沉淀进 Skill 的改进建议，由你勾选。
+## 依赖 · Requirements
 
-你只需要做选择题。说一句「直接做」，它就全部按推荐选项走完，最后告诉你替你选了什么。
+macOS / Linux / WSL，Python 3.10+，ffmpeg。其余依赖由 `tools/setup.sh` 自动安装。不需要 GPU，也不需要任何 API Key。
 
 ---
 
-## 工作流
+## 给 AI 看的说明 · For AI agents
 
-```mermaid
-flowchart LR
-  A[配音] --> B[开场确认<br>比例 · 音乐]
-  B --> C[逐字听写<br>拍点]
-  C --> D[定类型和风格<br>可选效果图]
-  D --> E[抓真实素材]
-  E --> F[分镜<br>标注现成或新写组件]
-  F --> G{确认单<br>先看关键帧总览?}
-  G -- 看 --> H[全篇关键帧总览] --> I
-  G -- 直接做 --> I[搭建动效<br>抽帧自查]
-  I --> J[60fps 分段并行渲染]
-  J --> K[成片 + 3:4 / 4:3 封面]
-  K --> L[复盘：规则 · 组件 · 引擎]
-```
+> 如果你是正在读这个仓库的 AI 助手：
 
----
+- **入口是 [`SKILL.md`](SKILL.md)**：完整的工作流、必须停下来问用户的节点、画面硬规则、输出规范、运镜转场规则。开始前完整读一遍。
+- **模板在 `motion-kit/`**：每支片先复制一份到项目目录再改，**不要直接改 skill 目录里的模板**。组件清单见 [`motion-kit/README.md`](motion-kit/README.md)。
+- **用户只需要提供配音**。比例、音乐、风格、标题都用选择题确认，推荐项放第一个；用户说了的不要重复问。
+- **时间点不要手抄**：用 `say('词')` 或 `python3 tools/when.py 词`。
+- **不编造数据和新闻**，示意内容在画面里标「示意」，素材来源记进 `a/来源.md`。
 
-## 组件包
-
-| 组件包 | 内容 |
-|---|---|
-| `engine/core.js` | 时间轴引擎：每一帧都是时间 t 的函数；镜头推拉、手持漂移、抖动、闪白、色散、颗粒、彩屑；`say('词')` 查口播时间 |
-| `engine/fx.js` | 转场：笔刷擦屏、色条擦屏、光圈、穿越推镜、甩镜、重拍缩放 |
-| `packs/explainer.js` | 知识讲解：动态文字、关键词卡、流程链、对比、时间线、大数字、柱状图、分层、标注框、背景 |
-| `packs/news.js` | AI 资讯：新闻卡、社交帖、滚动快讯、排行榜 |
-| `packs/tutorial.js` | 教程：浏览器或应用窗口、光标点击、打字、代码块、终端、聚光灯、步骤徽章 |
-| `packs/product-ui.js` | 产品案例：手机聊天（逐条推近）、推送通知 |
-| `packs/vertical.js` | 竖版专用画布；印章大字、盖章、逐字浮现、数据格、提示条、键帽、冲击线 |
-| `packs/web.js` | 真实网页：浏览器加长图滚动、截图框选、截图局部放大、卡片内逐帧播放视频 |
-| `packs/outro.js` | 片尾：收藏、关注、评论区置顶 |
-| `shell/` | 9:16 装饰带：`vframe.js`（night / tech / clean / paper）、`vframe-porcelain.js`（白瓷） |
-| `tools/` | 混音、听写、拍点、合成配乐、查口播时间、抓网页、预览、渲染、合成、封面 |
-
-完整说明见 [`motion-kit/README.md`](motion-kit/README.md)。
-
----
-
-## 依赖
-
-- macOS / Linux / WSL
-- Python 3.10+、ffmpeg
-- 其余依赖（Playwright Chromium、sherpa-onnx 听写模型、librosa 等）由 `tools/setup.sh` 自动安装
-- 不需要 GPU，也不需要任何 API Key，全程本地运行
-
----
-
-## 给 AI 看的说明
-
-> 如果你是正在读这个仓库的 AI 助手，下面是你需要知道的。
-
-- **入口是 [`SKILL.md`](SKILL.md)**。它是完整的工作流说明，包括每一步做什么、哪里必须停下来问用户、画面硬规则、输出规范。开始前先完整读一遍。
-- **模板在 `motion-kit/`**。每支片都先复制一份到项目目录再改，**不要直接改 Skill 目录里的模板**。组件清单见 `motion-kit/README.md`。
-- **用户只需要提供配音**。比例、音乐、风格、标题都通过选择题确认（推荐项放第一个）。用户说了的就不要重复问。
-- **时间点不要手抄**：用 `say('词')` 或 `python3 tools/when.py 词` 查口播时间。
-- **不编造数据和新闻**，示意内容要在画面里标「示意」；素材来源记进 `a/来源.md`。
-- 帮用户安装时：Claude Code 放到 `~/.claude/skills/motion-video-workflow/`；Codex 放到 `~/.agents/skills/motion-video-workflow/`。
-
-可以把下面这段直接发给你的 AI：
+可以把这段直接发给你的 AI：
 
 ```text
 请把 https://github.com/isaachang/motion-video-workflow 安装成我的 skill（Claude Code 放 ~/.claude/skills/，Codex 放 ~/.agents/skills/），
 读一遍 SKILL.md，然后告诉我做一支口播动效片需要准备什么。
 ```
 
----
-
-## 目录结构
+## 目录结构 · Layout
 
 ```
 motion-video-workflow/
 ├── SKILL.md              # 工作流说明（AI 的入口）
 ├── motion-kit/           # 模板：每支片复制一份再改
-│   ├── engine/           # 时间轴引擎 + 转场
-│   ├── packs/            # 组件包
+│   ├── engine/           # 时间轴引擎 + 遮罩转场
+│   ├── packs/            # 8 个组件包（含运镜转场 transition.js）
 │   ├── shell/            # 9:16 装饰带
 │   ├── tools/            # 音频、听写、抓图、渲染、封面
-│   ├── examples/muse/    # 第一支片的源码（仅参考，不含素材）
-│   └── index.html · vertical.html · cover.html · config.js
-└── docs/                 # README 用的效果图和它们的源码
+│   └── examples/muse/    # 第一支片的源码（仅参考，不含素材）
+└── docs/                 # README 用的演示素材和它们的源码（全部为代码生成的虚构内容）
 ```
 
----
+## 素材与版权 · License
 
-## 素材与版权
-
-- 引用真实产品或别人的作品时，请遵守对方的使用条款，画面里要标注原作者。Skill 会把每个素材的来源记录在 `a/来源.md`。
+- README 里的所有画面都是代码生成的虚构内容，源码在 [`docs/showcase-src/`](docs/showcase-src/)。
+- 引用真实产品或别人的作品时，请遵守对方的使用条款，画面里标注原作者。
 - 自动合成的配乐和代码画出的图形没有版权问题；自己挑音乐时请选可商用的曲库。
-- 本仓库代码采用 [MIT](LICENSE) 许可。内置字体 Inter 和自动下载的思源黑体（Noto Sans SC）均为 SIL OFL 许可。
+- 代码采用 [MIT](LICENSE) 许可。内置字体 Inter 和自动下载的思源黑体（Noto Sans SC）均为 SIL OFL 许可。
 
 <p align="center"><sub>Made with Claude Code · 如果它帮你做出了好片子，欢迎点个 Star</sub></p>

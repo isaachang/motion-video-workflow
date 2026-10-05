@@ -19,6 +19,7 @@
 | `packs/product-ui.js` | 产品案例：Phone 聊天（逐条推近）、Notice 推送、msgCenter |
 | `packs/vertical.js` | 竖版专用：VShot / vcam / vEnter（1080×1080 本地坐标）；强调类 Stamp、Seal、Chars、StatBox、Toast、Keycap、Burst、countTo |
 | `packs/web.js` | 真实网页：WebShot（浏览器加长图滚动，`at()` 把截图坐标换算成画面坐标）、WebMark（在截图上框选）、WebCrop（只露出截图的一块）、ClipPlayer（逐帧播放视频素材） |
+| `packs/transition.js` | 运镜转场（镜头跨切点连续）：pushThrough 推进穿越、pullOut 拉远揭示、whipPan 甩镜衔接、shapeMatch 形状匹配、foregroundWipe 前景遮挡、focusPull 景深转换；每个镜头是一层 `Layer(R)`，转场区间里前后两层共用同一条缓动曲线 |
 | `packs/outro.js` | 片尾：FavButton 收藏、FollowCard 关注、CommentPin 评论区置顶（作者信息写在 `CONFIG.creator`） |
 | `asr.js` | 由 `tools/asr.py` 生成；页面里 `say('词')` 返回这个词在配音里的时间 |
 | `shell/vframe.js` | 9:16 上下装饰带，preset 可选 night、tech、clean、paper |

@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:NSC;src:url(a/fonts/NotoSansSC.ttf);font-weight:100 900}
+@font-face{font-family:Inter;src:url(a/fonts/inter-latin-700-normal.woff2);font-weight:700}@font-face{font-family:Inter;src:url(a/fonts/inter-latin-800-normal.woff2);font-weight:800}
+*{margin:0;padding:0;box-sizing:border-box}body{background:#000}
+#c{width:1600px;height:860px;background:radial-gradient(ellipse at 20% 0%,#151A33,#07080F 60%);font-family:Inter,NSC;color:#E8EAF2;position:relative;overflow:hidden;padding:60px}
+.q{width:640px;background:#11131D;border:1.5px solid #262A3B;border-radius:22px;padding:28px 30px;margin-bottom:26px}
+.chip{display:inline-block;font:700 18px NSC;color:#8E9BFF;background:rgba(110,139,255,.12);padding:5px 12px;border-radius:8px;letter-spacing:2px}
+.qt{font:800 30px NSC;margin:14px 0 18px}
+.op{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-radius:14px;border:1.5px solid #262A3B;margin-top:10px}
+.op.on{border-color:#6E8BFF;background:rgba(110,139,255,.10)}
+.dot{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid #4B5063;margin-top:4px}.on .dot{border:7px solid #6E8BFF}
+.ot{font:800 24px NSC}.od{font:500 19px NSC;color:#8A8F98;margin-top:4px}
+.rec{color:#7EE787;font-size:20px;margin-left:6px}
+.grid{position:absolute;right:60px;top:60px;width:780px}
+.gt{font:800 30px NSC;margin-bottom:16px}.gs{font:500 20px NSC;color:#8A8F98;margin-bottom:22px}
+.g{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.g div{position:relative;aspect-ratio:9/16;border-radius:10px;background:#000 center/cover;border:1px solid #262A3B}
+.g span{position:absolute;left:6px;bottom:6px;font:700 13px Inter;color:#fff;background:rgba(0,0,0,.6);padding:2px 6px;border-radius:5px}
+</style></head><body><div id="c">
+<div class="q"><span class="chip">开场确认</span><div class="qt">这支片做什么比例？</div>
+<div class="op on"><i class="dot"></i><div><div class="ot">9:16 竖版<span class="rec">（推荐）</span></div><div class="od">抖音、小红书、视频号</div></div></div>
+<div class="op"><i class="dot"></i><div><div class="ot">16:9 横版</div><div class="od">B 站、YouTube</div></div></div></div>
+<div class="q"><span class="chip">确认单</span><div class="qt">要不要先看全篇关键帧总览？</div>
+<div class="op on"><i class="dot"></i><div><div class="ot">要，先看总览再做<span class="rec">（推荐）</span></div><div class="od">每个镜头一帧，确认后再补动画、渲染</div></div></div>
+<div class="op"><i class="dot"></i><div><div class="ot">不用，直接做完</div></div></div></div>
+<div class="grid"><div class="gt">全篇关键帧总览</div><div class="gs">每个镜头一帧，标好时间 —— 不满意就指出编号改</div><div class="g" id="g"></div></div>
+</div><script>
+const T=['0.0','3.5','6.0','8.0','10.5','12.0','14.5','18.0','21.0','26.0','38.0','53.5'];
+document.getElementById('g').innerHTML=T.map((t,i)=>`<div style="background-image:url(../../showcase/${String(i+1).padStart(2,'0')}.jpg)"><span>${t}s</span></div>`).join('');
+Promise.all([document.fonts.ready,...[...document.images]]).then(()=>setTimeout(()=>window.OK=1,500));
+</script></body></html>
