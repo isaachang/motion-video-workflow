@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:NSC;src:url(a/fonts/NotoSansSC.ttf);font-weight:100 900}
+@font-face{font-family:Inter;src:url(a/fonts/inter-latin-800-normal.woff2);font-weight:800}
+@font-face{font-family:Inter;src:url(a/fonts/inter-latin-600-normal.woff2);font-weight:600}
+*{margin:0;padding:0;box-sizing:border-box}
+#b{position:relative;width:1600px;height:800px;overflow:hidden;background:#07080D;font-family:Inter,NSC;color:#fff}
+.glow{position:absolute;border-radius:50%;filter:blur(120px)}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:56px 56px;-webkit-mask:radial-gradient(ellipse 70% 80% at 30% 50%,#000,transparent)}
+.l{position:absolute;left:96px;top:150px;width:700px}
+.k{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.22);font:600 20px Inter,NSC;letter-spacing:2px;color:rgba(255,255,255,.8);background:rgba(255,255,255,.04)}
+.k i{width:8px;height:8px;border-radius:50%;background:#7CFFB2;box-shadow:0 0 12px #7CFFB2}
+h1{margin-top:30px;font:800 92px/0.98 Inter;letter-spacing:-4px}
+h1 span{background:linear-gradient(90deg,#8EA2FF,#C58BFF 45%,#FF8FB1);-webkit-background-clip:text;color:transparent}
+.zh{margin-top:30px;font:800 40px/1.35 NSC;letter-spacing:0;white-space:nowrap}
+.zh b{position:relative;z-index:0}.zh b::after{content:'';position:absolute;left:0;right:0;bottom:2px;height:4px;background:#FEDD55;border-radius:2px}
+.zh b{color:#FEDD55;padding:0 2px}
+.sub{margin-top:22px;font:600 22px Inter,NSC;color:rgba(255,255,255,.55);letter-spacing:1px}
+.chips{margin-top:40px;display:flex;gap:10px}
+.c{padding:9px 15px;border-radius:12px;white-space:nowrap;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);font:600 18px Inter,NSC;color:rgba(255,255,255,.85)}
+.c.hi{background:linear-gradient(90deg,#D97757,#E8A06B);border:none;color:#fff}
+.fan{position:absolute;left:820px;top:0;width:780px;height:800px;perspective:1600px}
+.ph{position:absolute;width:250px;height:444px;border-radius:26px;overflow:hidden;box-shadow:0 0 0 5px #15161c,0 0 0 6.5px rgba(255,255,255,.18),0 40px 90px rgba(0,0,0,.6);background:#000 center/cover}
+.ph::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.16),transparent 35%)}
+</style></head><body><div id="b">
+<div class="glow" style="left:-200px;top:-200px;width:700px;height:600px;background:#3B4BFF;opacity:.35"></div>
+<div class="glow" style="left:900px;top:350px;width:800px;height:600px;background:#B23BFF;opacity:.28"></div>
+<div class="glow" style="left:500px;top:600px;width:500px;height:400px;background:#00C2A8;opacity:.18"></div>
+<div class="grid"></div>
+<div class="l">
+  <div class="k"><i></i>CLAUDE CODE SKILL · 口播动效视频</div>
+  <h1>Motion Video<br><span>Workflow</span></h1>
+  <div class="zh">一段配音 → 一支<b>逐帧代码渲染</b>的动效片</div>
+  <div class="sub">听写对齐口播 · 抓真实素材 · 现场设计每一帧 · 60fps 成片 + 封面</div>
+  <div class="chips"><div class="c hi">最佳搭档：Claude Code</div><div class="c">9:16 / 16:9</div><div class="c">不加字幕 · 纯动效</div><div class="c">全程本地</div></div>
+</div>
+<div class="fan" id="fan"></div>
+</div><script>
+const P=[[6,-10,60,-24,.84],[2,60,120,-12,.92],[1,255,160,0,1],[11,450,120,12,.92],[4,510,60,24,.84]];
+const fan=document.getElementById('fan');
+P.forEach(([n,x,y,r,s],i)=>{const d=document.createElement('div');d.className='ph';d.style.backgroundImage=`url(out/${String(n).padStart(2,'0')}.png)`;d.style.left=x+'px';d.style.top=y+'px';d.style.transform=`rotateY(${-r*1.2}deg) rotateZ(${r*.35}deg) scale(${s})`;d.style.zIndex=10-Math.abs(i-2);fan.appendChild(d);});
+Promise.all([document.fonts.ready]).then(()=>setTimeout(()=>window.OK=true,600));
+</script></body></html>

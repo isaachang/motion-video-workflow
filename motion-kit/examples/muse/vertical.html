@@ -1,0 +1,95 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Muse Motion 9x16</title>
+<style>
+@font-face{font-family:Inter;src:url(a/inter-latin-400-normal.woff2) format('woff2');font-weight:400}
+@font-face{font-family:Inter;src:url(a/inter-latin-500-normal.woff2) format('woff2');font-weight:500}
+@font-face{font-family:Inter;src:url(a/inter-latin-600-normal.woff2) format('woff2');font-weight:600}
+@font-face{font-family:Inter;src:url(a/inter-latin-700-normal.woff2) format('woff2');font-weight:700}
+@font-face{font-family:Inter;src:url(a/inter-latin-800-normal.woff2) format('woff2');font-weight:800}
+html,body{margin:0;background:#000;overflow:hidden;width:1080px;height:1920px}
+#vframe{position:relative;width:1080px;height:1920px;overflow:hidden;background:#050818}
+#win{position:absolute;left:0;top:420px;width:1080px;height:1080px;overflow:hidden;z-index:2}
+#win #stage{position:absolute;left:-420px;top:0}
+*{box-sizing:border-box}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:#F4F5F8;
+  font-family:Inter,'Noto Sans CJK SC','Noto Color Emoji',sans-serif;color:#111;-webkit-font-smoothing:antialiased;
+  font-feature-settings:"ss01","cv11";}
+.scene{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;display:none}
+.abs{position:absolute}
+.cam{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:960px 540px}
+.center{position:absolute;left:0;top:0;transform-origin:50% 50%}
+.bgMuse{position:absolute;inset:0;background:
+  radial-gradient(1200px 520px at 50% 118%, rgba(120,170,245,.55), rgba(160,195,250,.18) 55%, rgba(244,245,248,0) 75%),
+  linear-gradient(#F6F6F8,#F1F2F6)}
+.emoji{font-family:'Noto Color Emoji'}
+.tab{font-variant-numeric:tabular-nums}
+
+/* ---------- phone ---------- */
+.phone{position:absolute;width:402px;height:874px;border-radius:64px;background:#FCFCFC;overflow:hidden;
+  box-shadow:0 0 0 7px #0c0c0e,0 0 0 9px #3b3b40,0 50px 110px -25px rgba(25,40,80,.45);}
+.phone .island{position:absolute;top:11px;left:50%;width:122px;height:35px;margin-left:-61px;background:#000;border-radius:20px;z-index:9}
+.phone .sbar{position:absolute;top:0;left:0;right:0;height:54px;display:flex;justify-content:space-between;align-items:center;padding:4px 30px 0 52px;font:600 17px Inter;z-index:8}
+.phone .sbar svg{display:block}
+.phone .phead{position:absolute;top:48px;left:0;right:0;height:132px;z-index:6;background:linear-gradient(#FCFCFC 60%,rgba(252,252,252,0))}
+.phone .hbtn{position:absolute;top:24px;height:46px;min-width:46px;border-radius:23px;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;font:600 16px Inter}
+.phone .hav{position:absolute;left:50%;top:6px;margin-left:-28px;width:56px;height:56px;border-radius:50%;overflow:hidden;background:#fff}
+.phone .hav canvas,.phone .hav img{width:100%;height:100%;display:block;object-fit:cover}
+.phone .hname{position:absolute;left:50%;top:56px;transform:translateX(-50%);background:#fff;border-radius:14px;padding:4px 14px 6px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.07);white-space:nowrap}
+.phone .hname b{display:block;font:600 15px Inter}
+.phone .hname i{display:block;font:400 12.5px Inter,'Noto Sans CJK SC';color:#6c6c72;font-style:normal;margin-top:1px}
+.phone .chat{position:absolute;left:0;right:0;top:150px;bottom:152px;overflow:hidden;z-index:2}
+.phone .col{position:absolute;left:14px;right:14px;bottom:8px;display:flex;flex-direction:column}
+.mw{flex:none;display:flex;overflow:visible}
+.mw.r{justify-content:flex-end}
+.m{max-width:84%;padding:10px 14px 11px;border-radius:20px;font:400 16px/1.42 Inter,'Noto Sans CJK SC';margin:4px 0;transform-origin:0 100%}
+.m.a{background:#EDEDF0;color:#141416}
+.m.u{background:#CBE4FE;color:#0f1a2a;transform-origin:100% 100%}
+.phone .pinput{position:absolute;left:14px;right:14px;bottom:94px;height:50px;border-radius:25px;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.07);display:flex;align-items:center;padding:0 16px;gap:12px;font:400 17px Inter;color:#8e8e93;z-index:6}
+.phone .ptabs{position:absolute;left:20px;right:20px;bottom:24px;height:62px;border-radius:31px;background:#F2F2F3;display:flex;justify-content:space-around;align-items:center;z-index:6}
+.phone .ptabs .sel{width:66px;height:50px;border-radius:25px;background:#E4E4E6;display:flex;align-items:center;justify-content:center}
+.phone .bottomfade{position:absolute;left:0;right:0;bottom:0;height:170px;background:linear-gradient(rgba(252,252,252,0),#FCFCFC 30%);z-index:5}
+
+/* flight card */
+.fc{width:292px;border-radius:18px;overflow:hidden;background:#EDEDF0;margin:4px 0;font-family:Inter}
+.fc .fch{height:32px;color:#fff;font:700 16px Inter;display:flex;align-items:center;justify-content:center;background:#E3173E}
+.fc .fch.ok{background:#11A04D}
+.fc .fch.sch{background:#8E8E96}
+.fc .fcb{padding:10px 14px 12px}
+.fc .r1{display:flex;justify-content:space-between;align-items:baseline}
+.fc .r1 b{font:800 27px Inter}
+.fc .r1 span{font:500 12px Inter;color:#333}
+.fc .bar{position:relative;height:4px;border-radius:2px;background:#D6D6DA;margin:9px 0 9px}
+.fc .dot{position:absolute;top:-8px;left:-2px;width:20px;height:20px;border-radius:50%;background:#1936D6;display:flex;align-items:center;justify-content:center}
+.fc .r3{display:flex;justify-content:space-between;font:600 12px Inter;color:#222;letter-spacing:.2px}
+
+/* status card */
+.sc{display:flex;gap:12px;align-items:center;background:#EDEDF0;border-radius:18px;padding:11px 14px;margin:4px 0;width:300px}
+.sc .ic{width:40px;height:40px;border-radius:11px;background:#FDEBDD;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none}
+.sc b{display:block;font:500 15px Inter,'Noto Sans CJK SC'}
+.sc i{display:block;font:400 13.5px Inter,'Noto Sans CJK SC';color:#6c6c72;font-style:normal}
+
+/* action card */
+.ac{background:#fff;border-radius:22px;box-shadow:0 6px 24px rgba(0,0,0,.08);padding:14px;width:320px;margin:6px 0}
+.btnB{height:42px;border-radius:21px;background:linear-gradient(90deg,#0861D5,#4254E4);color:#fff;font:600 16px Inter,'Noto Sans CJK SC';display:flex;align-items:center;justify-content:center;gap:8px}
+.btnG{height:42px;border-radius:21px;background:#F2F2F4;color:#111;font:600 16px Inter,'Noto Sans CJK SC';display:flex;align-items:center;justify-content:center}
+
+/* muse pills (floating status) */
+.pill{position:absolute;display:flex;align-items:center;gap:10px;background:#fff;border-radius:999px;padding:12px 22px 12px 14px;box-shadow:0 10px 40px rgba(30,50,110,.14),0 1px 3px rgba(0,0,0,.06);font:500 28px Inter,'Noto Sans CJK SC';white-space:nowrap;color:#1a1a1c}
+.pill .pi{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:25px;background:#EEF3FE}
+
+.card{position:absolute;background:#fff;border-radius:28px;box-shadow:0 20px 60px rgba(30,50,110,.14),0 2px 6px rgba(0,0,0,.05)}
+.glass{background:rgba(255,255,255,.72);backdrop-filter:blur(18px)}
+</style>
+</head>
+<body>
+<div id="vframe"><div id="win"><div id="stage"></div></div></div>
+<script>window.VMODE = true;</script>
+<script src="dots.js"></script>
+<script src="lib.js"></script>
+<script src="s1.js"></script>
+<script src="s2.js"></script>
+<script src="s3.js"></script>
+<script src="s4.js"></script>
+<script src="vframe.js"></script>
+</body></html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>cover</title>
+<link rel="stylesheet" href="engine/kit.css">
+<style>
+html,body{background:#000;margin:0;overflow:hidden}
+#c{position:relative;overflow:hidden;font-family:Inter,'Noto Sans CJK SC',sans-serif;background:var(--bg)}
+.bg{position:absolute;inset:0;background:
+  radial-gradient(60% 50% at 85% 10%, color-mix(in srgb,var(--accent2) 45%,transparent), transparent 70%),
+  radial-gradient(70% 60% at 0% 100%, color-mix(in srgb,var(--accent) 40%,transparent), transparent 70%),
+  linear-gradient(160deg,var(--bg),var(--bg2))}
+.grid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;mask-image:linear-gradient(180deg,#000,transparent 70%)}
+.kicker{position:absolute;display:inline-flex;align-items:center;gap:12px;padding:12px 28px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;font:900 40px 'Noto Sans CJK SC';letter-spacing:4px;box-shadow:0 14px 40px -10px color-mix(in srgb,var(--accent) 70%,transparent)}
+.title{position:absolute;font-weight:900;font-family:'Noto Sans CJK SC';color:var(--ink);line-height:1.08;letter-spacing:-2px}
+.title .a{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.title .y{position:relative;z-index:1}.title .y::after{content:'';position:absolute;left:-.05em;right:-.05em;bottom:.06em;height:.34em;background:var(--hi);z-index:-1;border-radius:.06em}
+.hero{position:absolute;border-radius:40px;overflow:hidden;box-shadow:0 40px 100px -20px rgba(20,30,70,.45);background:var(--card)}
+.hero img{width:100%;height:100%;object-fit:cover;display:block}
+</style></head><body>
+<div id="c"><div class="bg"></div><div class="grid"></div></div>
+<script src="config.js"></script>
+<script>
+// 封面：#34 → 1080×1440，#43 → 1440×1080。标题 2 行以内、每行 ≤6 字，[[ ]] 渐变强调，{{ }} 荧光笔。
+for (const [k, v] of Object.entries(window.THEME || {})) document.documentElement.style.setProperty('--' + k, v);
+const C = (window.CONFIG || {}).cover || {}, r = location.hash.slice(1) || '34';
+const [w, h] = r === '43' ? [1440, 1080] : [1080, 1440];
+const c = document.getElementById('c'); c.style.width = w + 'px'; c.style.height = h + 'px';
+const fmt = s => s.replace(/\[\[(.+?)\]\]/g, '<span class="a">$1</span>').replace(/\{\{(.+?)\}\}/g, '<span class="y">$1</span>');
+const lines = C.title || ['标题第一行', '[[重点]]第二行'];
+const maxLen = Math.max(...lines.map(s => s.replace(/\[\[|\]\]|\{\{|\}\}/g, '').length));
+const add = (cls, html, st) => { const e = document.createElement('div'); e.className = cls; e.innerHTML = html; Object.assign(e.style, st); c.appendChild(e); return e; };
+if (r === '34') {
+  const fs = Math.min(200, Math.floor(940 / maxLen));
+  if (C.kicker) add('kicker', C.kicker, { left: '70px', top: '90px' });
+  add('title', lines.map(fmt).join('<br>'), { left: '70px', top: '190px', fontSize: fs + 'px' });
+  add('hero', C.hero ? `<img src="a/${C.hero}">` : (C.heroHTML || ''), { left: '70px', right: '70px', top: (230 + fs * 1.08 * lines.length + 40) + 'px', bottom: '90px' });
+} else {
+  const fs = Math.min(170, Math.floor(700 / maxLen));
+  if (C.kicker) add('kicker', C.kicker, { left: '80px', top: '110px' });
+  add('title', lines.map(fmt).join('<br>'), { left: '80px', top: '210px', fontSize: fs + 'px', width: '720px' });
+  add('hero', C.hero ? `<img src="a/${C.hero}">` : (C.heroHTML || ''), { left: '830px', right: '70px', top: '110px', bottom: '110px' });
+}
+document.fonts.ready.then(() => window.COVER_READY = true);
+</script>
+</body></html>

@@ -1,0 +1,11 @@
+.DS_Store
+__pycache__/
+*.pyc
+# 每个项目副本里生成的东西，不进仓库
+models/
+pv/
+pvv/
+segs*/
+*.wav
+*.mp4
+!docs/**

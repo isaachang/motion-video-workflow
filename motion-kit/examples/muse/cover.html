@@ -1,0 +1,77 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Muse Cover</title>
+<style>
+@font-face{font-family:Inter;src:url(a/inter-latin-500-normal.woff2) format('woff2');font-weight:500}
+@font-face{font-family:Inter;src:url(a/inter-latin-600-normal.woff2) format('woff2');font-weight:600}
+@font-face{font-family:Inter;src:url(a/inter-latin-700-normal.woff2) format('woff2');font-weight:700}
+@font-face{font-family:Inter;src:url(a/inter-latin-800-normal.woff2) format('woff2');font-weight:800}
+html,body{margin:0;background:#000}
+*{box-sizing:border-box}
+#c{position:relative;overflow:hidden;background:#050818;font-family:Inter,'Noto Sans CJK SC',sans-serif}
+#bg{position:absolute;inset:0}
+.abs{position:absolute}
+.title{font:900 132px/1.12 'Noto Sans CJK SC';color:#fff;letter-spacing:2px;transform:skewX(-8deg);text-shadow:0 0 40px rgba(60,150,255,.55),0 6px 0 rgba(0,0,0,.35);white-space:nowrap}
+.title .muse{font-family:Inter;font-weight:800;letter-spacing:-3px;background:linear-gradient(90deg,#4FC0FF,#1C6BFF);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 0 22px rgba(40,140,255,.8))}
+.title .ex{color:#FFD54A}
+.photo{border-radius:44px;overflow:hidden;box-shadow:0 0 0 4px rgba(120,190,255,.55),0 0 60px rgba(40,140,255,.55),0 40px 90px rgba(0,0,0,.5)}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.fc{width:292px;border-radius:18px;overflow:hidden;background:#F1F1F4;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.fc .h{height:34px;color:#fff;font:700 17px Inter;display:flex;align-items:center;justify-content:center;gap:6px}
+.fc .b{padding:11px 15px 13px}
+.fc .r1{display:flex;justify-content:space-between;align-items:baseline}
+.fc .r1 b{font:800 28px Inter}.fc .r1 span{font:500 12px Inter;color:#333}
+.fc .bar{position:relative;height:4px;border-radius:2px;background:#D6D6DA;margin:10px 0}
+.fc .dot{position:absolute;top:-8px;left:-3px;width:20px;height:20px;border-radius:50%;background:#1936D6}
+.fc .r3{display:flex;justify-content:space-between;font:600 12px Inter;color:#222}
+.brand{display:flex;align-items:center;gap:16px}
+.chip{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.95);border-radius:999px;padding:10px 26px 10px 10px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+</style></head>
+<body><div id="c"><canvas id="bg"></canvas></div>
+<script>
+const R = location.hash.replace('#', '') || '34';
+const [W, H] = R === '43' ? [1440, 1080] : [1080, 1440];
+const c = document.getElementById('c'); c.style.width = W + 'px'; c.style.height = H + 'px';
+const cv = document.getElementById('bg'); cv.width = W; cv.height = H; cv.style.width = W + 'px'; cv.style.height = H + 'px';
+const g = cv.getContext('2d');
+// background: navy gradient, aurora, tunnel frames, rails, dust
+const lg = g.createLinearGradient(0, 0, W * .3, H); lg.addColorStop(0, '#050a22'); lg.addColorStop(.5, '#0A1640'); lg.addColorStop(1, '#040716'); g.fillStyle = lg; g.fillRect(0, 0, W, H);
+g.globalCompositeOperation = 'lighter';
+for (const [x, y, r, col, a] of [[.15, .12, .45, '30,90,255', .38], [.9, .2, .4, '120,80,255', .25], [.6, .62, .55, '24,150,255', .26], [.1, .9, .4, '24,150,255', .22], [.95, .95, .45, '30,90,255', .3]]) {
+  const gr = g.createRadialGradient(x * W, y * H, 0, x * W, y * H, r * Math.max(W, H)); gr.addColorStop(0, `rgba(${col},${a})`); gr.addColorStop(1, `rgba(${col},0)`); g.fillStyle = gr; g.fillRect(0, 0, W, H);
+}
+g.globalCompositeOperation = 'source-over';
+const cx = W / 2, cy = H * .58;
+for (let i = 0; i < 7; i++) { const k = Math.pow(i / 6, 1.5); const w = W * (0.55 + 1.1 * k), h = H * (0.42 + 1.0 * k); g.strokeStyle = `rgba(70,160,255,${0.42 * (1 - i / 7)})`; g.lineWidth = 2; g.beginPath(); g.roundRect(cx - w / 2, cy - h / 2, w, h, 30 + 50 * k); g.stroke(); }
+g.strokeStyle = 'rgba(80,170,255,.28)'; g.lineWidth = 2;
+for (const [x, y] of [[0, 0], [W, 0], [0, H], [W, H]]) { g.beginPath(); g.moveTo(cx + (x - cx) * .27, cy + (y - cy) * .21); g.lineTo(x, y); g.stroke(); }
+let s = 7; const rnd = () => (s = s * 16807 % 2147483647) / 2147483647;
+for (let i = 0; i < 160; i++) { g.globalAlpha = .2 + .6 * rnd(); g.fillStyle = '#cfe6ff'; const z = rnd() * 2 + .5; g.fillRect(rnd() * W, rnd() * H, z, z); }
+g.globalAlpha = 1;
+
+const MUSE = `<svg width="56" height="56" viewBox="0 0 100 100"><defs><linearGradient id="mg" x1="133.245" y1="109.046" x2="24.9203" y2="-12.5565" gradientUnits="userSpaceOnUse"><stop offset="0.2548" stop-color="#0082FB"/><stop offset="0.6971" stop-color="#0064E0"/><stop offset="1" stop-color="#0040DC"/></linearGradient></defs><path d="M24.6257 16.1214C28.2365 16.1214 30.8187 18.9408 30.8187 23.3643C30.8185 27.7868 30.1055 31.7765 28.9225 40.2466C28.0743 46.1813 26.62 55.2418 26.0132 59.0088C27.1782 56.7815 29.9074 51.5757 30.3914 50.5982C36.1081 39.061 42.0657 28.7544 43.7826 26.0254C46.0594 22.382 48.062 20.9229 51.1597 20.9229C52.7685 20.923 54.6826 21.7357 55.6315 22.819C56.9178 24.2895 57.1859 26.6602 57.1411 29.244C57.0738 33.2073 56.5599 39.5264 55.8553 46.5698C55.5416 49.7057 54.9365 56.1066 54.5288 60.4004C58.1883 53.8532 64.9609 41.8109 67.6921 37.6058C70.0727 33.9402 72.466 31.5797 75.6836 31.5796C78.4595 31.5796 81.8809 33.5416 81.6772 38.7573C81.3774 46.4556 80.2673 63.2232 79.7607 70.7479C83.1662 65.7913 87.6377 58.4543 89.3148 55.6966C91.0104 52.908 92.75 50.6542 95.3898 50.5778C98.0987 50.4995 99.913 52.341 99.9959 55.1839C100.078 58.0277 98.3835 61.2256 96.1344 64.856C93.6937 68.7957 90.9621 73.0123 87.6383 76.9491C84.3148 80.8856 81.2604 83.8782 76.5991 83.8786C72.4243 83.8786 69.4869 81.1043 69.283 76.0254C69.1768 73.364 69.6804 67.6405 70.0602 63.1673C70.5 57.9875 71.0315 52.9861 71.403 49.6786C67.7337 56.3979 60.0101 70.4676 56.5348 75.9603C53.1343 81.3339 51.4774 83.2269 47.8882 83.2275C44.2977 83.2275 42.7226 80.6416 42.6717 76.7497C42.6142 72.5285 45.7852 47.1821 46.8587 38.737C45.1183 42.4616 40.839 51.6056 38.1551 57.0435C35.5587 62.3055 31.204 71.3978 28.0436 76.6357C25.7668 80.4094 23.2092 83.2273 19.4173 83.2275C15.6252 83.2275 13.4847 80.6784 13.4847 76.5788C13.4847 72.4794 14.6716 65.6492 15.9465 57.1777C16.5839 53.0781 17.3108 48.6133 18.1315 43.8761C18.7324 40.448 19.7764 34.4169 20.4183 30.7129C17.502 35.2539 12.2536 43.4278 10.6567 45.8903C8.88113 48.6291 7.28747 50.626 4.64681 50.6266C1.7329 50.6266 0.000532901 48.3522 0 45.7113C0 43.0703 1.34323 41.0344 3.52376 37.4512C6.32403 32.8465 11.3578 26.57 14.1154 23.2747C17.3656 19.3912 20.6139 16.1219 24.6257 16.1214Z" fill="url(#mg)"/></svg>`;
+const plane = `<svg width="12" height="12" viewBox="0 0 24 24" style="position:absolute;left:4px;top:4px"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" fill="#fff" transform="rotate(90 12 12)"/></svg>`;
+const card = (head, col, date) => `<div class="fc"><div class="h" style="background:${col}">${head}</div><div class="b"><div class="r1"><b>PEK</b><span>11h 40m</span><b>LAX</b></div><div class="bar"><div class="dot">${plane}</div></div><div class="r3"><span>${date}</span><span>9:45 AM</span></div></div></div>`;
+const check = (sz) => `<div style="width:${sz}px;height:${sz}px;border-radius:50%;background:#11A04D;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 ${sz * .07}px #fff,0 16px 40px rgba(17,160,77,.55)"><svg width="${sz * .6}" height="${sz * .6}" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`;
+const add = (html, st) => { const d = document.createElement('div'); d.className = 'abs'; d.innerHTML = html; Object.assign(d.style, st); c.appendChild(d); return d; };
+const brand = `<div class="brand">${'<div style="width:72px;height:72px;border-radius:18px;background:linear-gradient(#fff,#EDEDEF);display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(40,140,255,.6)">' + MUSE + '</div>'}<div style="font:800 56px Inter;color:#fff;letter-spacing:-2px">Muse</div><div style="width:2px;height:44px;background:rgba(255,255,255,.3);margin:0 6px"></div><span style="font:500 30px Inter;color:rgba(255,255,255,.75)">from</span><img src="a/meta-wordmark.svg" style="height:76px;margin:-4px -22px 0 -18px;filter:invert(1);opacity:.85"></div>`;
+const chip = `<div class="chip"><div style="width:58px;height:58px;border-radius:29px;overflow:hidden"><img src="a/hatch.jpg" style="width:100%;height:100%;object-fit:cover;object-position:50% 35%"></div><div><div style="font:600 22px Inter;color:#111">Muse</div><div style="font:500 20px 'Noto Sans CJK SC';color:#55607a">🎧 正在联系美联航客服…</div></div></div>`;
+
+if (R === '43') {
+  add(`<div class="title" style="font-size:118px">航班取消</div><div class="title" style="margin-top:6px;font-size:118px"><span class="muse">Muse</span>救了我<span class="ex">！</span></div>`, { left: '72px', top: '130px' });
+  add(`<div class="photo" style="width:480px;height:820px"><img src="a/og-image.jpg" style="object-position:45% 50%"></div>`, { left: '905px', top: '130px' });
+  add(chip, { left: '820px', top: '850px', transform: 'scale(1.12)', transformOrigin: '0 0' });
+  add(card('Cancelled', '#E3173E', 'OCT 1 · 1:05 PM'), { left: '96px', top: '530px', transform: 'rotate(-7deg) scale(1.55)', transformOrigin: '0 0', opacity: '.92' });
+  add(card('✓ Rebooked', '#11A04D', 'OCT 2 · 1:05 PM'), { left: '330px', top: '600px', transform: 'rotate(4deg) scale(1.65)', transformOrigin: '0 0' });
+  add(check(120), { left: '800px', top: '560px' });
+  add(brand, { left: '86px', top: '940px', transform: 'scale(.95)', transformOrigin: '0 0' });
+} else {
+  add(`<div class="title" style="text-align:center">航班取消</div><div class="title" style="text-align:center;margin-top:4px"><span class="muse">Muse</span>救了我<span class="ex">！</span></div>`, { left: '0', width: '1080px', top: '96px' });
+  add(`<div class="photo" style="width:940px;height:620px"><img src="a/og-image.jpg" style="object-position:50% 50%"></div>`, { left: '70px', top: '470px' });
+  add(chip, { left: '110px', top: '505px', transform: 'scale(1.1)', transformOrigin: '0 0' });
+  add(card('Cancelled', '#E3173E', 'OCT 1 · 1:05 PM'), { left: '70px', top: '1000px', transform: 'rotate(-7deg) scale(1.5)', transformOrigin: '0 0', opacity: '.92' });
+  add(card('✓ Rebooked', '#11A04D', 'OCT 2 · 1:05 PM'), { left: '520px', top: '1010px', transform: 'rotate(4deg) scale(1.6)', transformOrigin: '0 0' });
+  add(check(118), { left: '930px', top: '960px' });
+  add(brand, { left: '0', width: '1080px', top: '1330px', display: 'flex', justifyContent: 'center' });
+}
+window.READY = document.fonts.ready.then(() => document.fonts.load('900 100px "Noto Sans CJK SC"', '航班')).then(() => Promise.all([...document.images].map(i => i.complete ? 1 : new Promise(r => i.onload = r))));
+</script></body></html>

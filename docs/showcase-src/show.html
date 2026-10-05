@@ -1,0 +1,26 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>showcase</title>
+<link rel="stylesheet" href="engine/kit.css">
+<style>
+html,body{width:1080px;height:1920px}
+#vframe{position:relative;width:1080px;height:1920px;overflow:hidden}
+#win{position:absolute;left:0;top:420px;width:1080px;height:1080px;overflow:hidden;z-index:2}
+#win #stage{position:absolute;left:-420px;top:0}
+</style>
+</head><body>
+<div id="vframe"><div id="win"><div id="stage"></div></div></div>
+<script>window.VMODE = true;</script>
+<script src="show-config.js"></script>
+<script src="asr.js"></script>
+<script src="engine/core.js"></script>
+<script src="engine/fx.js"></script>
+<script src="packs/explainer.js"></script>
+<script src="packs/news.js"></script>
+<script src="packs/tutorial.js"></script>
+<script src="packs/product-ui.js"></script>
+<script src="packs/vertical.js"></script>
+<script src="packs/web.js"></script>
+<script src="packs/outro.js"></script>
+<script src="show-scenes.js"></script>
+<script>document.write(`<script src="shell/${S.shell === 'porcelain' ? 'vframe-porcelain' : 'vframe'}.js"><\/script>`);</script>
+</body></html>
