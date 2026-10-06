@@ -15,6 +15,7 @@ description: "用户提供配音（背景音乐可选，没有就自动合成）
 2. **背景音乐**（只在用户没给音乐时问）：
    - 「我自己找音乐（推荐）」：说明效果最好，节奏清楚、带鼓点的纯音乐最合适，拿到后再开工。
    - 「自动合成配乐」：说明是代码合成的极简电子乐，没有版权问题，但效果不如真人挑的音乐，之后可以随时替换后重新混音，画面不用重做。
+   - 「配音里已经带了音乐」：用户自己混好了配乐，就走第 1 步的「配音自带配乐」，不再另加音乐。
 
 后面各步只做选中的比例：只出 9:16 时跳过所有 16:9 的渲染和检查，动效只为竖版 1080×1080 内容窗设计；只出 16:9 时跳过第 7 步。
 
@@ -47,13 +48,14 @@ description: "用户提供配音（背景音乐可选，没有就自动合成）
 ## 0. 准备模板（motion-kit）
 本 skill 推荐在 Claude Code 里运行（也兼容 Codex 等支持 SKILL.md 的 agent），所有工作都在用户电脑本地完成。模板就在本 skill 目录的 `motion-kit/` 里。
 1. 问清或自定一个项目目录（默认 `~/Movies/<片名>/源码`），把 skill 目录下的 `motion-kit/` 整个复制过去，后续都在这个项目目录里操作。不要直接改 skill 目录里的模板。
-2. 在项目目录运行 `bash tools/setup.sh`。它会安装 Python 依赖、Playwright 的 Chromium、下载听写模型，并检查 ffmpeg 和中文字体。缺什么按提示装（需要用户确认的安装命令先问用户）。
+2. 在项目目录运行 `bash tools/setup.sh`。它会安装 Python 依赖、Playwright 的 Chromium、下载听写模型，并检查 ffmpeg 和中文字体。缺什么按提示装（需要用户确认的安装命令先问用户）。**从上一期复制了模型也要跑**：模板里不带中文字体，跳过 setup 会缺 `a/fonts/NotoSansSC.ttf`，中文变成宋体（预览会报「缺中文字体」）。
 3. 先读 `README.md`，了解目录结构和组件清单。
 4. `examples/muse/` 是第一支片（产品案例）的完整源码，只作参考，不能照套。
 5. 用任务列表跟踪进度：音频、类型和风格、素材、分镜、确认单、搭建、预览、渲染、竖版、封面、交付。
 
 ## 1. 音频
 0. **选了自动合成配乐时**：先单独听写配音（`ffmpeg -i vo -ac 1 -ar 16000 vo16k.wav` 后跑第 3 步），按口播的段落定冲击点，再运行 `python3 tools/make_bgm.py --dur 时长+0.2 --impacts 段落切换时刻 [--brk 痛点段起,止] [--end 收尾时刻]`。冲击点放在钩子结束、转入主体、高潮这些位置，吸附到拍点（120 BPM 拍长 0.5 秒）。痛点或「以前」段落适合用 `--brk`（去鼓加低通），结束时自动回归。脚本直接生成 `bgm.wav` 和精确的 `beats.js`，跳过第 4 步。交付时提醒用户：换成自己挑的音乐效果更好，替换后重跑混音和合成即可。
+0. **配音自带配乐时**（用户已经混好音乐）：不跑 `mix.sh`，直接把配音响度统一成混音，结尾留出定版：`ffmpeg -i vo -af "aformat=channel_layouts=stereo,aresample=48000,apad=pad_dur=0.8,afade=t=out:st=配音时长-0.8:d=1.6,loudnorm=I=-14:TP=-1.0:LRA=11" -ar 48000 mix.wav`。听写用同一个配音转 16k（`ffmpeg -i vo -ac 1 -ar 16000 vo16k.wav`，带轻配乐也能听准），拍点直接 `python3 tools/beats.py vo`，然后跳到第 3 步。
 1. 运行 `bash tools/mix.sh vo bgm 时长`。它会：
    - 让音乐在有人声时自动压低，整体响度统一到 -14 LUFS，结尾淡出。
    - 导出混音 `mix.wav`，以及听写用的纯人声 `vo16k.wav`。
@@ -84,7 +86,7 @@ description: "用户提供配音（背景音乐可选，没有就自动合成）
 | AI 知识讲解 | 抛出问题 → 用比喻画面类比 → 拆解原理 → 对比 → 举例 → 一句话总结 | explainer：KineticText、FlowChain、Layers、Compare、Timeline、BarChart、KeyWord | 主要靠代码画的图标和图示，少量真实 logo |
 | 教程 | 先展示最终效果 → 每步一屏 → 常见坑 → 回顾清单 | tutorial：Win、Cursor、Spotlight、Callout、StepBadge、CodeBlock、Terminal；web：WebShot、WebMark、WebCrop | 工具的真实截图，用户提供或用浏览器截取 |
 
-所有类型通用：vertical（只出 9:16 时的画布 VShot / vcam，以及 Stamp、Seal、Chars、StatBox、Toast、Keycap、Burst 这些强调类组件）；outro（片尾 FavButton、FollowCard、CommentPin，作者信息写在 `CONFIG.creator`）；web 里的 ClipPlayer（在卡片里播放视频素材）。
+所有类型通用：vertical（只出 9:16 时的画布 VShot / vcam，以及 Stamp、Seal、Chars、StatBox、Toast、Keycap、Burst 这些强调类组件）；mascot（产品有吉祥物 / IP 形象时用 Char 让角色弹出、从边缘探出、呼吸浮动，SoftShot 做柔光渐变镜头底）；product-ui 里的 CallScreen（AI 打电话、代谈这类场景的通话界面）；outro（片尾 FavButton、FollowCard、CommentPin，作者信息写在 `CONFIG.creator`）；web 里的 ClipPlayer（在卡片里播放视频素材）。
 
 同一类型的不同片子，也要换比喻、换主视觉、换配色。`config.js` 里的 THEME 每次都要重新定。
 
@@ -101,7 +103,7 @@ description: "用户提供配音（背景音乐可选，没有就自动合成）
 
 **下载方法**：本地网络可用时直接用 `curl -L -o a/文件名 URL` 下载；视频截帧用 `ffmpeg -ss 时间 -i 视频 -frames:v 1 a/xx.jpg`。需要登录或动态加载的页面，用 Playwright 打开后截图或取资源地址。下载前告诉用户要下哪些文件、来自哪里。
 
-**抠图**：白底素材按亮度阈值加羽化处理。复杂背景用 rembg（可以 pip 安装）。
+**抠图**：白底素材按亮度阈值加羽化处理。官方白底 / 纯色底的角色动画（比如 logo 变形成吉祥物）用 `python3 tools/key_video.py 视频 a/目录 [--scale] [--from] [--to]` 抠成透明 PNG 序列，角色身上的白色不会被抠掉，字母 o 这类封闭孔洞也会抠干净，再挑单帧当静态角色图。复杂背景用 rembg（可以 pip 安装）。
 
 **整理**：所有素材放进 `a/`，同时在 `a/来源.md` 记下每个素材的来源和许可。
 
@@ -154,7 +156,7 @@ description: "用户提供配音（背景音乐可选，没有就自动合成）
 **按确认单①最后一题的选择走：**
 - **选了「先看总览」**：
   1. 先不做完整动画，每个镜头只搭出它的**关键画面**，也就是信息全部到位、版式和配色定稿的那一帧。入场和镜头运动可以先简单处理。
-  2. 每个镜头取一帧（`preview.py` 抽帧），拼成**全篇关键帧总览图**，每格下面标时间和对应的口播。自查过第 5 条的检查项后发给用户。
+  2. 每个镜头取一帧（`preview.py` 抽帧），在 `pvv/labels.txt` 里逐行写「时间<Tab>#镜号 口播」，用 `python3 tools/sheet.py pvv output/关键帧总览.jpg 7 300` 拼成**全篇关键帧总览图**（每格下面自动标时间和口播）。自查过第 5 条的检查项后发给用户。
   3. 选择题：「按这个做完（推荐）/ 改其中几个镜头 / 整体风格要调整」。用户确认后，再补全动画、转场、镜头运动，然后进入第 6 步渲染。渲染前不再发关键帧。
 - **选了「直接做完」**：完整搭建 → 自查 → 直接渲染。过程中和交付时都不发关键帧总览。
 
@@ -183,6 +185,7 @@ description: "用户提供配音（背景音乐可选，没有就自动合成）
    - 走标题党方向，可以带悬念、数字或反差
    - 不加逗号，可以用感叹号或问号
    - 两行以内，每行不超过 6 个字
+   - 选择题里除了推荐的几个标题，**固定加一个「先不定，做完再商量」选项**。用户选了它，就先把成片交付掉，交付消息里提醒封面还没做，等用户回来再一起定标题，再出封面。
 2. 用户定了标题后，写进 `CONFIG.cover`（title、kicker、hero）。
 3. 运行 `python3 tools/cover_shot.py`，导出两倍分辨率的 3:4 和 4:3 两张封面，再转成 JPG。
 4. 主图优先用真实素材。版式可以在 cover.html 里按当次风格调整。

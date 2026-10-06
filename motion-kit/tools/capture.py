@@ -32,7 +32,7 @@ async def main():
         b = await p.chromium.launch()
         ctx = await b.new_context(viewport={'width': VW, 'height': VH}, device_scale_factor=DPR, locale='zh-CN')
         pg = await ctx.new_page()
-        await pg.goto(URL, wait_until='networkidle', timeout=90000); await pg.wait_for_timeout(2000)
+        await pg.goto(URL, wait_until='domcontentloaded', timeout=90000); await pg.wait_for_timeout(6000)  # 不等 networkidle：有长连接的网站（如 openai.com）永远等不到
         for label in DISMISS:
             btn = pg.get_by_role('button', name=label, exact=True)
             if await btn.count():

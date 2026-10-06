@@ -12,7 +12,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/最佳搭档-Claude%20Code-D97757?style=flat-square" alt="Claude Code">
   <img src="https://img.shields.io/badge/也支持-Codex-111111?style=flat-square" alt="Codex">
-  <img src="https://img.shields.io/badge/组件-40-3B5BFF?style=flat-square" alt="40 components">
+  <img src="https://img.shields.io/badge/组件-43-3B5BFF?style=flat-square" alt="43 components">
   <img src="https://img.shields.io/badge/转场-13-8B5CF6?style=flat-square" alt="13 transitions">
   <img src="https://img.shields.io/badge/渲染-60fps%20逐帧-10B981?style=flat-square" alt="60fps">
   <img src="https://img.shields.io/badge/成本-0%20元%20·%20全程本地-111111?style=flat-square" alt="free local">
@@ -160,14 +160,15 @@ flowchart LR
 ## 能力清单 · What's inside
 
 <details>
-<summary><b>40 个组件</b>（点开看全部）</summary>
+<summary><b>43 个组件</b>（点开看全部）</summary>
 
 | 组件包 | 组件 |
 |---|---|
 | 知识讲解 `explainer` | 动态文字、关键词卡、流程链、左右对比、时间线、大数字、柱状图、分层结构、标注框、状态胶囊、5 种动态背景、约 25 个线性图标 |
 | AI 资讯 `news` | 新闻卡、社交帖、滚动快讯条、排行榜 |
 | 教程 `tutorial` | 浏览器 / 应用窗口、鼠标点击、逐字打字、代码块、终端、聚光灯、步骤徽章 |
-| 产品案例 `product-ui` | 手机聊天（逐条推近）、推送通知 |
+| 产品案例 `product-ui` | 手机聊天（逐条推近）、推送通知、通话界面（计时 + 声波 + 对话气泡） |
+| 角色 / IP 形象 `mascot` | 透明角色弹出 / 从边缘探出 / 呼吸浮动、柔光渐变镜头底 |
 | 竖版 `vertical` | 竖版画布和镜头、印章大字、盖章、逐字浮现、数据格、提示条、键帽、冲击线 |
 | 真实网页 `web` | 浏览器加长图滚动、截图框选、截图局部放大、卡片内逐帧播放视频 |
 | 片尾 `outro` | 收藏、关注、评论区置顶 |
@@ -268,9 +269,9 @@ motion-video-workflow/
 ├── SKILL.md              # 工作流说明（AI 的入口）
 ├── motion-kit/           # 模板：每支片复制一份再改
 │   ├── engine/           # 时间轴引擎 + 遮罩转场
-│   ├── packs/            # 8 个组件包（含运镜转场 transition.js）
+│   ├── packs/            # 9 个组件包（含运镜转场 transition.js、角色 mascot.js）
 │   ├── shell/            # 9:16 装饰带
-│   ├── tools/            # 音频、听写、抓图、渲染、封面
+│   ├── tools/            # 音频、听写、抓图、抠图、关键帧总览、渲染、封面
 │   └── examples/muse/    # 第一支片的源码（仅参考，不含素材）
 └── docs/                 # README 用的演示素材和它们的源码（全部为代码生成的虚构内容）
 ```

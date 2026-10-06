@@ -224,7 +224,8 @@ function Confetti(parent, seed, n, origin, opt = {}) {
 // ---------- ready ----------
 window.READY = (async () => {
   for (const w of [400, 500, 600, 700, 800]) await document.fonts.load(`${w} 20px Inter`).catch(() => {});
-  await document.fonts.load('400 20px "Noto Sans CJK SC"', '中文'); await document.fonts.load('900 20px "Noto Sans CJK SC"', '中文');
+  const cjk = await document.fonts.load('900 20px "Noto Sans CJK SC"', '中文').catch(() => []); await document.fonts.load('400 20px "Noto Sans CJK SC"', '中文').catch(() => {});
+  if (!cjk.length) console.error('缺中文字体：a/fonts/NotoSansSC.ttf 不存在，系统也没装 Noto Sans CJK SC，中文会变成宋体。请在项目目录运行 bash tools/setup.sh');
   await loadAll();
   await Promise.all([...document.images].map(i => i.decode().catch(() => console.warn('img', i.src))));
   for (const s of SCENES) s.el.style.display = 'block';      // 全部可见时测量

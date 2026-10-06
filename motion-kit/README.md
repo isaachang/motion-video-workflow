@@ -16,14 +16,15 @@
 | `packs/explainer.js` | 知识讲解：KineticText、KeyWord、FlowChain、Compare、Timeline、BigStat、BarChart、Layers、Callout、Pill、Bg、IC 图标 |
 | `packs/news.js` | 资讯：NewsCard、PostCard、Ticker、Ranking |
 | `packs/tutorial.js` | 教程：Win 窗口、Cursor 光标点击、Spotlight、StepBadge、CodeBlock、Terminal、typeInto |
-| `packs/product-ui.js` | 产品案例：Phone 聊天（逐条推近）、Notice 推送、msgCenter |
+| `packs/product-ui.js` | 产品案例：Phone 聊天（逐条推近）、Notice 推送、msgCenter、CallScreen 通话界面（计时 + 声波 + 对话气泡，头像圆可做形状匹配） |
 | `packs/vertical.js` | 竖版专用：VShot / vcam / vEnter（1080×1080 本地坐标）；强调类 Stamp、Seal、Chars、StatBox、Toast、Keycap、Burst、countTo |
+| `packs/mascot.js` | 角色 / IP 形象（竖版）：Char 透明角色图弹出或从边缘探出、呼吸式浮动、重拍上弹一下；SoftShot 柔光渐变镜头底（光斑慢慢漂） |
 | `packs/web.js` | 真实网页：WebShot（浏览器加长图滚动，`at()` 把截图坐标换算成画面坐标）、WebMark（在截图上框选）、WebCrop（只露出截图的一块）、ClipPlayer（逐帧播放视频素材） |
 | `packs/transition.js` | 运镜转场（镜头跨切点连续）：pushThrough 推进穿越、pullOut 拉远揭示、whipPan 甩镜衔接、shapeMatch 形状匹配、foregroundWipe 前景遮挡、focusPull 景深转换；每个镜头是一层 `Layer(R)`，转场区间里前后两层共用同一条缓动曲线 |
 | `packs/outro.js` | 片尾：FavButton 收藏、FollowCard 关注、CommentPin 评论区置顶（作者信息写在 `CONFIG.creator`） |
 | `asr.js` | 由 `tools/asr.py` 生成；页面里 `say('词')` 返回这个词在配音里的时间 |
 | `shell/vframe.js` | 9:16 上下装饰带，preset 可选 night、tech、clean、paper |
-| `tools/` | setup、mix、asr、beats、make_bgm（没有音乐时自动合成配乐）、preview、render、segs、finish、cover_shot |
+| `tools/` | setup、mix、asr、beats、make_bgm（没有音乐时自动合成配乐）、preview、sheet（关键帧总览拼图）、key_video（白底动画抠成透明序列帧）、capture、render、segs、finish、cover_shot |
 | `examples/muse/` | 第一支片的完整源码，只作参考 |
 
 ## 组件约定
@@ -41,6 +42,8 @@ python3 tools/capture.py https://x.com 名称 --sel 'textarea' 输入框   # 抓
 python3 tools/beats.py bgm.mp3                     # 生成 beats.js
 python3 tools/make_bgm.py --dur 56.8 --impacts 6,21 --brk 38,44.5  # 没有音乐时：合成 bgm.wav + 精确 beats.js
 python3 tools/preview.py 1,5.5,12 [--v]            # 抽帧预览，生成 pv/ 或 pvv/
+python3 tools/sheet.py pvv output/关键帧总览.jpg 7 300   # 拼关键帧总览（pvv/labels.txt：时间<Tab>口播）
+python3 tools/key_video.py 官方动画.mp4 a/morph --scale 1.4   # 白底动画抠成透明 PNG 序列（CONFIG.sprites 直接读）
 nohup bash tools/segs.sh 62.5 > segs.log 2>&1 &    # 16:9 分段并行渲染
 nohup bash tools/segs.sh 62.5 --v > segs_v.log 2>&1 &
 bash tools/finish.sh mix.wav out_16x9.mp4          # 合并、加音频、压成 HEVC
