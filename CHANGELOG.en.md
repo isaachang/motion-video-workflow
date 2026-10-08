@@ -10,6 +10,12 @@ Every version and what changed in it, newest first. Versions look like `major.mi
 - Patch (`0.x.y`): fixes and polish
 - Until 1.0, component APIs can still change. Anything that breaks existing code gets its own "Breaking changes" section — skim it before you upgrade.
 
+## [0.3.2] - 2026-10-08
+
+### Docs
+- Cut the README badges from 8 down to 3: version, works with Claude Code · Codex, and MIT license. Component and transition counts, 60fps, and cost are all covered in the body already
+- Fixed near-black badges that disappeared in GitHub's dark mode
+
 ## [0.3.1] - 2026-10-07
 
 ### Improved
@@ -63,6 +69,7 @@ First release: one voice-over in, one frame-by-frame, code-rendered motion video
 - Toolchain: audio mix, offline word-level transcription, beat detection, auto-generated music, web capture, frame preview, parallel segment rendering, HEVC encode, cover export
 - A 12-image showcase wall
 
+[0.3.2]: https://github.com/isaachang/motion-video-workflow/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/isaachang/motion-video-workflow/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/isaachang/motion-video-workflow/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/isaachang/motion-video-workflow/compare/v0.1.0...v0.2.0

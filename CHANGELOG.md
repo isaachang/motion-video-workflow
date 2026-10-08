@@ -10,6 +10,12 @@
 - 修订号（`0.x.y`）：修复和细节改进
 - 1.0 之前，组件接口还可能调整。有不兼容的改动会单独列在「不兼容改动」里，升级前看一眼
 
+## [0.3.2] - 2026-10-08
+
+### 文档
+- README 顶部的徽章从 8 个精简到 3 个：版本、适用于 Claude Code · Codex、MIT 许可。组件数量、转场数量、60fps、成本这些在正文里都有，不再重复
+- 修复近黑色徽章在 GitHub 深色模式下看不清的问题
+
 ## [0.3.1] - 2026-10-07
 
 ### 改进
@@ -63,6 +69,7 @@
 - 工具链：混音、离线逐字听写、拍点检测、自动合成配乐、抓网页、抽帧预览、分段并行渲染、HEVC 合成、封面导出
 - 12 张效果图作品墙
 
+[0.3.2]: https://github.com/isaachang/motion-video-workflow/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/isaachang/motion-video-workflow/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/isaachang/motion-video-workflow/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/isaachang/motion-video-workflow/compare/v0.1.0...v0.2.0

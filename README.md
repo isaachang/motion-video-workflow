@@ -15,13 +15,8 @@
 
 <p align="center">
   <a href="CHANGELOG.md"><img src="https://img.shields.io/github/v/release/isaachang/motion-video-workflow?style=flat-square&label=%E7%89%88%E6%9C%AC&color=F97316" alt="版本"></a>
-  <img src="https://img.shields.io/badge/最佳搭档-Claude%20Code-D97757?style=flat-square" alt="Claude Code">
-  <img src="https://img.shields.io/badge/也支持-Codex-111111?style=flat-square" alt="Codex">
-  <img src="https://img.shields.io/badge/组件-43-3B5BFF?style=flat-square" alt="43 components">
-  <img src="https://img.shields.io/badge/转场-13-8B5CF6?style=flat-square" alt="13 transitions">
-  <img src="https://img.shields.io/badge/渲染-60fps%20逐帧-10B981?style=flat-square" alt="60fps">
-  <img src="https://img.shields.io/badge/成本-0%20元%20·%20全程本地-111111?style=flat-square" alt="free local">
-  <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="MIT">
+  <img src="https://img.shields.io/badge/适用于-Claude%20Code%20·%20Codex-D97757?style=flat-square" alt="Claude Code · Codex">
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="MIT">
 </p>
 
 <table>

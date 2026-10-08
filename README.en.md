@@ -14,13 +14,8 @@
 
 <p align="center">
   <a href="CHANGELOG.en.md"><img src="https://img.shields.io/github/v/release/isaachang/motion-video-workflow?style=flat-square&label=version&color=F97316" alt="version"></a>
-  <img src="https://img.shields.io/badge/pairs%20best%20with-Claude%20Code-D97757?style=flat-square" alt="Claude Code">
-  <img src="https://img.shields.io/badge/also%20works%20with-Codex-111111?style=flat-square" alt="Codex">
-  <img src="https://img.shields.io/badge/components-43-3B5BFF?style=flat-square" alt="43 components">
-  <img src="https://img.shields.io/badge/transitions-13-8B5CF6?style=flat-square" alt="13 transitions">
-  <img src="https://img.shields.io/badge/render-60fps%20frame%20by%20frame-10B981?style=flat-square" alt="60fps">
-  <img src="https://img.shields.io/badge/cost-%240%20·%20fully%20local-111111?style=flat-square" alt="free local">
-  <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="MIT">
+  <img src="https://img.shields.io/badge/works%20with-Claude%20Code%20·%20Codex-D97757?style=flat-square" alt="Claude Code · Codex">
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="MIT">
 </p>
 
 <table>
