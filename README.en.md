@@ -13,6 +13,7 @@
 </p>
 
 <p align="center">
+  <a href="CHANGELOG.en.md"><img src="https://img.shields.io/github/v/release/isaachang/motion-video-workflow?style=flat-square&label=version&color=F97316" alt="version"></a>
   <img src="https://img.shields.io/badge/pairs%20best%20with-Claude%20Code-D97757?style=flat-square" alt="Claude Code">
   <img src="https://img.shields.io/badge/also%20works%20with-Codex-111111?style=flat-square" alt="Codex">
   <img src="https://img.shields.io/badge/components-43-3B5BFF?style=flat-square" alt="43 components">
@@ -270,6 +271,7 @@ read through SKILL.md, then tell me what I need to prepare to make a motion vide
 ```
 motion-video-workflow/
 ├── SKILL.md              # Workflow docs (the AI's entry point)
+├── CHANGELOG.md          # Changelog: what changed in each version (English: CHANGELOG.en.md)
 ├── motion-kit/           # Template: copy per episode, then edit the copy
 │   ├── engine/           # Timeline engine + mask-wipe transitions
 │   ├── packs/            # 9 component packs (incl. camera transitions in transition.js, mascot.js)

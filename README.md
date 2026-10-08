@@ -14,6 +14,7 @@
 </p>
 
 <p align="center">
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/github/v/release/isaachang/motion-video-workflow?style=flat-square&label=%E7%89%88%E6%9C%AC&color=F97316" alt="版本"></a>
   <img src="https://img.shields.io/badge/最佳搭档-Claude%20Code-D97757?style=flat-square" alt="Claude Code">
   <img src="https://img.shields.io/badge/也支持-Codex-111111?style=flat-square" alt="Codex">
   <img src="https://img.shields.io/badge/组件-43-3B5BFF?style=flat-square" alt="43 components">
@@ -271,6 +272,7 @@ macOS / Linux / WSL，Python 3.10+，ffmpeg。其余依赖由 `tools/setup.sh` �
 ```
 motion-video-workflow/
 ├── SKILL.md              # 工作流说明（AI 的入口）
+├── CHANGELOG.md          # 更新日志：每个版本改了什么
 ├── motion-kit/           # 模板：每支片复制一份再改
 │   ├── engine/           # 时间轴引擎 + 遮罩转场
 │   ├── packs/            # 9 个组件包（含运镜转场 transition.js、角色 mascot.js）
