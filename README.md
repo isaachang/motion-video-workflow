@@ -2,6 +2,10 @@
   <img src="docs/showcase/banner.jpg" alt="Motion Video Workflow" width="100%">
 </p>
 
+<p align="center">
+  <b>简体中文</b> · <a href="README.en.md">English</a>
+</p>
+
 <h1 align="center">Motion Video Workflow</h1>
 
 <p align="center">
