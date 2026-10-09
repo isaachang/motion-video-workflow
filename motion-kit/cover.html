@@ -34,10 +34,16 @@ if (r === '34') {
   add('title', lines.map(fmt).join('<br>'), { left: '70px', top: '190px', fontSize: fs + 'px' });
   add('hero', C.hero ? `<img src="a/${C.hero}">` : (C.heroHTML || ''), { left: '70px', right: '70px', top: (230 + fs * 1.08 * lines.length + 40) + 'px', bottom: '90px' });
 } else {
-  const fs = Math.min(170, Math.floor(700 / maxLen));
-  if (C.kicker) add('kicker', C.kicker, { left: '80px', top: '110px' });
-  add('title', lines.map(fmt).join('<br>'), { left: '80px', top: '210px', fontSize: fs + 'px', width: '720px' });
-  add('hero', C.hero ? `<img src="a/${C.hero}">` : (C.heroHTML || ''), { left: '830px', right: '70px', top: '110px', bottom: '110px' });
+  // 横版：左栏文字整组垂直居中（标签 + 标题 + 说明 + 卖点），右栏主图放大
+  const fs = Math.min(150, Math.floor(820 / maxLen));
+  const col = add('abs', '', { left: '90px', top: '0', bottom: '0', width: '840px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '38px' });
+  const put = (cls, html, st) => { const e = add(cls, html, st); e.style.position = 'relative'; e.style.left = e.style.top = 'auto'; col.appendChild(e); return e; };
+  if (C.kicker) put('kicker', C.kicker, { alignSelf: 'flex-start' });
+  put('title', lines.map(fmt).join('<br>'), { fontSize: fs + 'px' });
+  if (C.sub) put('abs', C.sub, { font: "700 44px 'Noto Sans CJK SC'", color: 'var(--sub)', letterSpacing: '2px' });
+  if (C.chips) put('abs', C.chips.map(x => `<span style="display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;background:var(--card);box-shadow:0 10px 30px rgba(20,24,40,.12);font:800 38px 'Noto Sans CJK SC';color:var(--ink)"><i style="width:14px;height:14px;border-radius:7px;background:var(--accent)"></i>${x}</span>`).join(''), { display: 'flex', gap: '18px', flexWrap: 'wrap' });
+  const hh = add('hero', (C.hero43 || C.hero) ? `<img src="a/${C.hero43 || C.hero}">` : (C.heroHTML || ''), { right: '80px', top: '50px', bottom: '50px', width: '520px' });
+  if (C.hero43) { hh.style.background = 'transparent'; hh.style.boxShadow = 'none'; hh.style.overflow = 'visible'; const im = hh.querySelector('img'); im.style.objectFit = 'contain'; im.style.filter = 'drop-shadow(0 40px 60px rgba(20,24,40,.35))'; }
 }
 document.fonts.ready.then(() => window.COVER_READY = true);
 </script>

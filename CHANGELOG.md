@@ -10,6 +10,16 @@
 - 修订号（`0.x.y`）：修复和细节改进
 - 1.0 之前，组件接口还可能调整。有不兼容的改动会单独列在「不兼容改动」里，升级前看一眼
 
+## [0.3.3] - 2026-10-09
+
+### 改进
+- 横版 4:3 封面重新排版：左栏文字整组上下居中、标题放大；标题下面可以加一行说明（`CONFIG.cover.sub`）和 2–3 个卖点标签（`CONFIG.cover.chips`），把左下角填满；右栏主图顶满画面高度
+- 新增 `CONFIG.cover.hero43`：横版单独用一张主图，适合抠成透明底的竖长主体（比如手机），完整显示、不裁切。三个新字段都可以不填，旧配置照常能用
+
+### 工作流
+- 第 3 步新增规则：用代码重建产品界面前，先去官网首屏、产品页、下载页或发布视频里找官方的真实界面截图，照着校准配色、布局、字号和文案；讲 Claude Code 时默认用桌面客户端（Code 页）的界面，不用终端
+- 第 8 步新增规则：横版封面不能留大片空白，导出后看一眼，还有大块空白就继续调
+
 ## [0.3.2] - 2026-10-08
 
 ### 文档
@@ -69,6 +79,7 @@
 - 工具链：混音、离线逐字听写、拍点检测、自动合成配乐、抓网页、抽帧预览、分段并行渲染、HEVC 合成、封面导出
 - 12 张效果图作品墙
 
+[0.3.3]: https://github.com/isaachang/motion-video-workflow/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/isaachang/motion-video-workflow/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/isaachang/motion-video-workflow/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/isaachang/motion-video-workflow/compare/v0.2.0...v0.3.0
