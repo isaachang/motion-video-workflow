@@ -46,7 +46,7 @@ description: "用户提供配音（背景音乐可选，没有就自动合成）
 - **没有 AskUserQuestion 或 SendUserFile 的环境**（比如 Codex）：选择题改成编号选项列出，推荐项放第一个，让用户回编号；发图改成给出图片的完整路径。
 
 ## 0. 准备模板（motion-kit）
-本 skill 推荐在 Claude Code 里运行（也兼容 Codex 等支持 SKILL.md 的 agent），所有工作都在用户电脑本地完成。模板就在本 skill 目录的 `motion-kit/` 里。
+本 skill 推荐在 Claude Code 里用 **Claude Opus 5.5** 运行（也兼容 Codex 等支持 SKILL.md 的 agent），所有工作都在用户电脑本地完成。每期要现场写上千行动画代码、做视觉判断，模型越弱，画面越简单、bug 越多；发现当前不是 Opus 时，开场提醒用户一句，用户坚持就照常做。模板就在本 skill 目录的 `motion-kit/` 里。
 1. 问清或自定一个项目目录（默认 `~/Movies/<片名>/源码`），把 skill 目录下的 `motion-kit/` 整个复制过去，后续都在这个项目目录里操作。不要直接改 skill 目录里的模板。
 2. 在项目目录运行 `bash tools/setup.sh`。它会安装 Python 依赖、Playwright 的 Chromium、下载听写模型，并检查 ffmpeg 和中文字体。缺什么按提示装（需要用户确认的安装命令先问用户）。**从上一期复制了模型也要跑**：模板里不带中文字体，跳过 setup 会缺 `a/fonts/NotoSansSC.ttf`，中文变成宋体（预览会报「缺中文字体」）。
 3. 先读 `README.md`，了解目录结构和组件清单。
@@ -106,6 +106,8 @@ description: "用户提供配音（背景音乐可选，没有就自动合成）
 **下载方法**：本地网络可用时直接用 `curl -L -o a/文件名 URL` 下载；视频截帧用 `ffmpeg -ss 时间 -i 视频 -frames:v 1 a/xx.jpg`。需要登录或动态加载的页面，用 Playwright 打开后截图或取资源地址。下载前告诉用户要下哪些文件、来自哪里。
 
 **抠图**：白底素材按亮度阈值加羽化处理。官方白底 / 纯色底的角色动画（比如 logo 变形成吉祥物）用 `python3 tools/key_video.py 视频 a/目录 [--scale] [--from] [--to]` 抠成透明 PNG 序列，角色身上的白色不会被抠掉，字母 o 这类封闭孔洞也会抠干净，再挑单帧当静态角色图。复杂背景用 rembg（可以 pip 安装）。
+
+**提到的真实内容一律用官方素材**（用户反馈）：口播里出现的产品、公司、人物、界面，包括只提一句的竞品，画面里都要用官方真实素材，比如 logo、应用图标、IP 形象、官网截图、发布视频截帧，不能用代码画的占位图代替。实在找不到才按真实样式重建，并在交付时说明哪些是重建的。
 
 **整理**：所有素材放进 `a/`，同时在 `a/来源.md` 记下每个素材的来源和许可。
 
@@ -200,5 +202,6 @@ description: "用户提供配音（背景音乐可选，没有就自动合成）
    - **规则**：用户这次提的意见里，以后每期都适用的 → 补进第 4 步的硬规则。
    - **组件**：这期新写的组件里，以后还会用的 → 去掉写死的样式（颜色走主题变量），放进 `motion-kit/packs/`，并更新 README 的组件清单。
    - **引擎和工具**：这次碰到的 bug 或缺的功能 → 修进 `motion-kit/engine/` 或 `tools/`。
+   - 多选题最后**固定加一个「这次不更新」选项**：不是每期的意见都值得沉淀，用户选了它（或者什么都没勾），这期就不改 skill。
    skill 文件就在本 skill 所在目录（Claude Code 一般是 `~/.claude/skills/motion-video-workflow/`，Codex 一般是 `~/.agents/skills/motion-video-workflow/`），没经用户勾选不要改。
 

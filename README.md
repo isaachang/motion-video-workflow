@@ -198,7 +198,7 @@ flowchart LR
 
 ## 为什么推荐 Claude Code · Best with Claude
 
-这个 skill 在 **Claude Code + Claude Opus** 上开发和打磨，效果最好：
+这个 skill 在 **Claude Code + Claude Opus 5.5** 上开发和打磨，**强烈推荐用 Opus 5.5 运行**。每期都要现写上千行动画代码，换成更小的模型也能跑，但画面会简单很多：
 
 - **选择题确认**：用 Claude Code 自带的选择题工具问你，点一下就能选
 - **看图自查**：Claude 能直接看自己渲染的预览帧，发现问题自己修
@@ -241,7 +241,8 @@ git clone https://github.com/isaachang/motion-video-workflow ~/.agents/skills/mo
 
 ## 依赖 · Requirements
 
-macOS / Linux / WSL，Python 3.10+，ffmpeg。其余依赖由 `tools/setup.sh` 自动安装。不需要 GPU，也不需要任何 API Key。
+- **模型**：推荐 Claude Opus 5.5
+- **系统**：macOS / Linux / WSL，Python 3.10+，ffmpeg。其余依赖由 `tools/setup.sh` 自动安装。不需要 GPU，也不需要任何 API Key
 
 ---
 

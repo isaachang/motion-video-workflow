@@ -197,7 +197,7 @@ At the end of every episode, AI sorts what it learned into three buckets and lis
 
 ## Best with Claude
 
-This skill was built and tuned on **Claude Code + Claude Opus**, and that's where it runs best:
+This skill was built and tuned on **Claude Code + Claude Opus 5.5**, and **Opus 5.5 is strongly recommended**. Every episode means writing a thousand-plus lines of fresh animation code — smaller models still run it, but the visuals come out much simpler:
 
 - **Multiple-choice confirmations**: Claude Code's built-in choice tool asks you directly, one click to answer
 - **Self-checking by eye**: Claude can look at its own rendered preview frames and fix what's wrong
@@ -240,7 +240,8 @@ From there: confirm the basics (aspect ratio, music) → optionally preview a lo
 
 ## Requirements
 
-macOS / Linux / WSL, Python 3.10+, ffmpeg. Everything else gets installed automatically by `tools/setup.sh`. No GPU needed, no API key needed.
+- **Model**: Claude Opus 5.5 recommended
+- **System**: macOS / Linux / WSL, Python 3.10+, ffmpeg. Everything else gets installed automatically by `tools/setup.sh`. No GPU needed, no API key needed
 
 ---
 

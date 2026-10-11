@@ -10,6 +10,13 @@ Every version and what changed in it, newest first. Versions look like `major.mi
 - Patch (`0.x.y`): fixes and polish
 - Until 1.0, component APIs can still change. Anything that breaks existing code gets its own "Breaking changes" section — skim it before you upgrade.
 
+## [0.3.4] - 2026-10-10
+
+### Workflow
+- Claude Opus 5.5 is now the stated recommended model: noted in SKILL.md step 0 and in the README's "Best with Claude" and "Requirements" sections. If the session isn't on Opus, the skill mentions it once at the start
+- New rule in step 3: every product, company, person, or interface the voice-over mentions — even a competitor named in passing — gets official, real assets on screen. Only rebuild from the real look when nothing official exists, and say so at delivery
+- The end-of-episode review in step 9 always includes a "No updates this time" option, since not every round of feedback is worth keeping
+
 ## [0.3.3] - 2026-10-09
 
 ### Improved
@@ -79,6 +86,7 @@ First release: one voice-over in, one frame-by-frame, code-rendered motion video
 - Toolchain: audio mix, offline word-level transcription, beat detection, auto-generated music, web capture, frame preview, parallel segment rendering, HEVC encode, cover export
 - A 12-image showcase wall
 
+[0.3.4]: https://github.com/isaachang/motion-video-workflow/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/isaachang/motion-video-workflow/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/isaachang/motion-video-workflow/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/isaachang/motion-video-workflow/compare/v0.3.0...v0.3.1
